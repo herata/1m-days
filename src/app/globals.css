@@ -118,5 +118,73 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+		font-feature-settings: "rlig" 1, "calt" 1;
+	}
+	
+	/* モバイル向けの最適化 */
+	html {
+		/* iOS Safariでのタップハイライトを無効化 */
+		-webkit-tap-highlight-color: transparent;
+		/* モバイルでのフォントサイズ調整を無効化 */
+		-webkit-text-size-adjust: 100%;
+	}
+	
+	/* モバイルでのタッチ操作の改善 */
+	button, [role="button"] {
+		touch-action: manipulation;
+	}
+	
+	/* モバイルでのスクロール改善 */
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+	
+	/* CopilotChat レイアウトの最適化 */
+	.copilot-chat-container {
+		@apply h-full flex flex-col;
+	}
+	
+	/* チャットメッセージエリア */
+	.copilot-kit-chat-messages {
+		@apply flex-1 overflow-y-auto p-4;
+	}
+	
+	/* チャット入力エリアを下部に固定 */
+	.copilot-kit-chat-input {
+		@apply mt-auto border-t bg-background p-3 sm:p-4;
+		/* モバイルでの安全エリアを考慮 */
+		padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+	}
+	
+	/* 入力フィールドのモバイル最適化 */
+	.copilot-kit-chat-input input,
+	.copilot-kit-chat-input textarea {
+		@apply text-base min-h-[44px] rounded-lg border border-input bg-background px-3 py-2;
+		/* iOSでのズーム防止 */
+		font-size: max(16px, 1rem);
+		/* IME制御の改善 */
+		ime-mode: active;
+	}
+	
+	/* 日本語入力中のスタイル */
+	.copilot-kit-chat-input input:focus,
+	.copilot-kit-chat-input textarea:focus {
+		outline: 2px solid hsl(var(--primary));
+		outline-offset: 2px;
+	}
+	
+	/* 送信後のテキストクリア確保 */
+	.copilot-kit-chat-input [data-state="sent"] {
+		opacity: 0.5;
+		transition: opacity 0.2s ease;
+	}
+	
+	/* 送信ボタンのモバイル最適化 */
+	.copilot-kit-chat-input button {
+		@apply min-h-[44px] min-w-[44px];
 	}
 }
